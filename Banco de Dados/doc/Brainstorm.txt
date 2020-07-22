@@ -1,0 +1,38 @@
+Aluno: Natan Henrique Sanches (11795680)
+ICMC/USP - Instituto de Ciências Matemáticas e Computação
+Bacharelado em Ciências de Computação - 2020
+Sistema de Gerenciamento de Banco de Dados (SGBD)
+
+Ideia de struct dinâmica: Trabalhar com uma struct que possua um union para os diferentes tipos de variáveis. Ir completando conforme a necessidade.
+Haverá uma struct de base: a struct de metadados, que possuirá o nome daquele campo, o tipo daquele campo, o conteúdo do campo e seu tamanho em bytes.
+A struct de conteúdo representa um union para os diferentes tipos de variáveis, armazenará o conteúdo e está dentro da struct de metadados.
+
+Processo lógico:
+- Leitura do arquivo de metadados:
+	- Carregamento dos metadados na RAM.
+	- Possível através de fscanf e readline.
+	- Armazenamento do nome do arquivo .reg/.idx num string a parte.
+	- Armazenamento nas posições da struct de metadados.
+
+- (insert): Insere um grupo de dados no arquivo filename.reg:
+	- Abertura do arquivo filename.reg (fopen).
+	- Leitura das informações de entrada (scanf).
+	- Anotar offset da informação (ftell).
+	- Armazenamento em uma struct na memória RAM para a produção do arquivo .idx (chave e offset).
+	- Escrita binária das informações no arquivo filename.reg (fwrite).
+	- Fechamento do arquivo filename.reg (fclose).
+
+- (index): Arquivo de offsets:
+	- Abertura do arquivo filename.idx (fopen).
+		- Se existente, carregar os dados desse arquivo (fscanf).
+		- Se não, transferir os offsets armazenados na RAM numa struct para o index.
+	- Ordenação em ordem crescente por offset das chaves.
+	- Escrita do novo arquivo (fprintf).
+	- Fechamento do filename.idx (fclose).
+
+- (search): Procura um grupo de dados pelo offset:
+	- Carregamento do arquivo filename.idx na memória RAM (fscanf).
+	- Inclusão dos inserts já armazenados na RAM.
+	- Realização da busca binária pelo offset desejado.
+	- Leitura do arquivo filename.reg no offset desejado (fread).
+	- Exibir na tela (printf).
