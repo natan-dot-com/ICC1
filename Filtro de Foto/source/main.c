@@ -85,27 +85,27 @@ int main(int argc, char *argv[]) {
 
 	FILE *fp_newbmp = fopen(filename, "wb+");
         
-    size_t bytesToWrite = FILE_HEADER_SIZE;
-    size_t bytesWritten = writeFileReader(fp_newbmp, f_header);
-    if (bytesWritten != bytesToWrite) {
-        error = WRITE_FAILED;
-        exit(0);
-    }
+    	size_t bytesToWrite = FILE_HEADER_SIZE;
+    	size_t bytesWritten = writeFileReader(fp_newbmp, f_header);
+    	if (bytesWritten != bytesToWrite) {
+        	error = WRITE_FAILED;
+        	exit(0);
+    	}
 	freeFileHeader(f_header);
 
-    bytesToWrite += (*b_header).header_size;
+    	bytesToWrite += (*b_header).header_size;
 	bytesWritten = writeBitmapHeader(fp_newbmp, b_header);
-    if (bytesWritten != bytesToWrite) {
-        error = WRITE_FAILED;
-        exit(0);
-    }
+    	if (bytesWritten != bytesToWrite) {
+        	error = WRITE_FAILED;
+        	exit(0);
+    	}
 	
-    bytesToWrite = (*f_header).offset;
+    	bytesToWrite = (*f_header).offset;
 	bytesWritten = writeColorPalette(fp_newbmp, c_palette);
-    if (bytesWritten != bytesToWrite) {
-        error = WRITE_FAILED;
-        exit(0);
-    }
+    	if (bytesWritten != bytesToWrite) {
+        	error = WRITE_FAILED;
+        	exit(0);
+    	}
 	free(c_palette);
 
 	writeImageData(fp_newbmp, ImageData, b_header);
